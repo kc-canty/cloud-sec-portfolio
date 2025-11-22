@@ -33,16 +33,7 @@ This created noisy ICMP traffic that shows up in logs and simulates basic networ
 
 ---
 
-## 04_windows_network-event_5156.png (optional)
-**What this shows:**  
-A network event (Event ID 5156).
-
-**Why it matters:**  
-This event logs allowed network traffic. It's useful for understanding normal vs. unusual network communication patterns.
-
----
-
-## 05_linux_failed-sudo-attempt.png
+## 04_linux_failed-sudo-attempt.png
 **What this shows:**  
 A failed sudo attempt inside Ubuntu (WSL) where I deliberately typed the wrong password.
 
@@ -51,7 +42,7 @@ Failed privilege escalation attempts can be an early sign of unauthorized access
 
 ---
 
-## 06_linux_authlog_sudo.png
+## 05_linux_authlog_sudo.png
 **What this shows:**  
 Filtered output from auth.log using:  
 `sudo cat /var/log/auth.log | grep "sudo"`
