@@ -1,65 +1,73 @@
+# Event Notes – Raw Observations While Learning
 
-# Event Notes (My Raw Observations)
-
-These are my personal notes from looking at the logs after generating different kinds of activity. I'm still learning how to read and interpret log data, so these notes reflect what I understood in plain language.
+These are my personal notes from looking at the Windows and Linux logs I generated on purpose. I'm still learning, so I'm writing things the way I understood them. These are not “polished” findings — just what I saw and how I interpreted it as a beginner.
 
 ---
 
-## Failed Login Attempts (Windows – Event ID 4625)
+## Windows Failed Logon Attempts (Event ID 4625)
 
-I generated several failed login attempts using the `runas` command with a fake username and password. Then I checked Event Viewer under:
+I created several failed logon attempts using the `runas` command with a fake username. Then I checked Event Viewer under:
 
 Windows Logs → Security → Event ID 4625
 
-Here’s what I noticed:
+Here’s what stood out to me:
 
-### Event 4625 Observations
+### What I Saw:
 - **Logon Type:** 2  
-  (This means interactive login — I used the console.)
+  (This means it was an interactive logon attempt at the machine.)
 - **Account Name:** FakeUser  
-  (The account I attempted to use.)
-- **Status / SubStatus:** 0xC000006D / 0xC000006A  
-  (From what I found online, these codes mean "Logon failed" and "Bad password.")
-- **Failure Reason:** "Unknown user name or bad password."
+  (The account I intentionally tried to log in as.)
+- **Failure Reason:** Unknown user name or bad password  
+- **Status/SubStatus:** 0xC000006D / 0xC000006A  
+  (From what I looked up, the substatus usually means “bad password.”)
 - **Process Name:** `C:\Windows\System32\runas.exe`  
-  (Matches the command I used.)
-- **IP Address:** Not present  
-  (Makes sense because this was a local login attempt.)
+  (This matches how I generated the event.)
 
-### My Beginner Interpretation
-- The system logged each attempt exactly the way I expected.
-- Seeing the different fields helped me understand what information Windows records during a failed logon.
-- If this happened many times in a row on a real machine, it *could* be a sign of someone trying to guess passwords (brute force).
-
-### Why I Think This Matters
-Even though this was just a test, I can see how failed logon events are useful for detecting suspicious activity. It's one of the first things SOC analysts learn to look at.
+### My Beginner Interpretation:
+- The system logged exactly what I expected.
+- Seeing the failed logons in Event Viewer helped me understand how brute-force behavior starts showing up.
+- These events could be the beginning stage of someone trying to guess passwords.
 
 ---
 
-## Example Raw Event Log Snippet (Copied from Event Viewer)
+## Linux Failed Sudo Attempts (Ubuntu /var/log/auth.log)
 
-An account failed to log on.
+I also wanted to generate failed sudo logs inside Ubuntu (WSL). I mistyped my password on purpose a few times.
 
-Subject:
-Security ID: SYSTEM
-Account Name: DESKTOP-12345$
-Account Domain: WORKGROUP
-Logon ID: 0x3E7
+Here are lines I noticed in the auth log:
 
-Logon Type: 2
+authentication failure; logname= uid=1000 euid=0 tty=/dev/pts/0 ruser=keith rhost= user=keith
+keith : 3 incorrect password attempts ; COMMAND=/usr/bin/ls
 
-Account For Which Logon Failed:
-Security ID: NULL SID
-Account Name: FakeUser
-Account Domain: DESKTOP-12345
 
-Failure Information:
-Failure Reason: Unknown user name or bad password.
-Status: 0xC000006D
-Sub Status: 0xC000006A
+### What I Saw:
+- It shows the username (`keith`) attempting sudo.
+- It shows how many incorrect password attempts I made.
+- It shows the exact command I tried (`ls` with sudo).
+- It tells me authentication failed.
 
-Process Information:
-Caller Process Name: C:\Windows\System32\runas.exe
+### My Beginner Interpretation:
+- This helped me understand what failed privilege escalation attempts look like.
+- Seeing these logs makes it easier to imagine how attackers try to gain higher privileges.
 
+---
+
+## Ping Flood / Noisy Network Traffic (Windows)
+
+I ran a simple ping loop:
+
+ping 127.0.0.1 -t
+
+
+What I noticed:
+- It generated continuous ICMP traffic.
+- I could see network-related logs in Event Viewer and Task Manager.
+- This helped me understand how noisy network behavior looks.
+
+---
+
+## Overall Thoughts (In My Own Words)
+
+This lab helped me get comfortable reading logs and understanding what they mean. Even these small examples show how logs can tell a story about what’s happening on a machine. I’m starting to see how SOC analysts spot suspicious activity just from patterns in logs.
 
 
