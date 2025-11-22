@@ -40,6 +40,6 @@ A ping flood can overwhelm a machine or network. MITRE puts this under network f
 
 ---
 
-## Summary (In My Own Words)
+## Summary 
 
 Mapping my activity to MITRE helped me understand how specific events fit into bigger attacker behaviors. Even small logs can point to techniques like brute force, privilege escalation attempts, and network flooding. This gave me confidence reading logs and connecting them to real-world tactics.
