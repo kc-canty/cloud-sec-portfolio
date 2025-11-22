@@ -61,12 +61,15 @@ ping 127.0.0.1 -t
 
 What I noticed:
 - It generated continuous ICMP traffic.
-- I could see network-related logs in Event Viewer and Task Manager.
+- I couldn't see network-related logs in Event Viewer and Task Manager as the network traffic was local.
+- No external connection → no network boundary crossed → no log needed.
+- Windows does not treat local-loop ICMP as a network connection event
+- No Event ID 5156 created
 - This helped me understand how noisy network behavior looks.
 
 ---
 
-## Overall Thoughts (In My Own Words)
+## Overall Thoughts
 
 This lab helped me get comfortable reading logs and understanding what they mean. Even these small examples show how logs can tell a story about what’s happening on a machine. I’m starting to see how SOC analysts spot suspicious activity just from patterns in logs.
 
