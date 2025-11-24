@@ -1,4 +1,4 @@
-### Finding: Use of strcpy (unsafe string copy)
+j### Finding: Use of strcpy (unsafe string copy)
 
 This file is just my rough notes from running cppcheck and flawfinder on my small C++ program. I'm still learning how to read static analysis results, so some of these notes may not be perfect, but they reflect what I understood as I went through the tool output.
 
@@ -45,18 +45,6 @@ When I ran `flawfinder main.cpp`, I got warnings about:
 
 
 These stood out to me because I know buffer overflow problems are a big deal in security.
-
----
-
-## Tool Output (flawfinder)
-
-When I ran `flawfinder main.cpp`, I got warnings about:
-
-- `strcpy` being unsafe
-- possible risks when using fixed-size char arrays
-
-Example line from the output:
-
 
 This immediately made sense because the program doesn’t check how long the user input is before copying it.
 
