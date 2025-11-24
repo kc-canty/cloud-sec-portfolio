@@ -52,15 +52,6 @@ This highlights the actual log lines Linux writes when sudo authentication fails
 
 ---
 
-## 07_linux_successful-sudo.png (optional)
-**What this shows:**  
-A successful sudo authentication.
-
-**Why it matters:**  
-Seeing both failed and successful attempts helps understand the normal pattern of sudo activity, making it easier to spot suspicious escalation attempts.
-
----
-
 ## How to Interpret These Screenshots
 I included these to show:
 - what the activity looks like visually  
