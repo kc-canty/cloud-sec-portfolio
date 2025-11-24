@@ -1,4 +1,4 @@
-j### Finding: Use of strcpy (unsafe string copy)
+Finding: Use of strcpy (unsafe string copy)
 
 This file is just my rough notes from running cppcheck and flawfinder on my small C++ program. I'm still learning how to read static analysis results, so some of these notes may not be perfect, but they reflect what I understood as I went through the tool output.
 
